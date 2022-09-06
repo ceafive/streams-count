@@ -1,22 +1,22 @@
-const { findUserByID } = require("../db");
+const { getUserByID } = require("../config/dynamo");
 
 exports.checkUser = async (req, res, next) => {
-  let token = req.headers?.["x-id"];
-  token = token ? String(token) : "";
+  let id = req.headers?.["x-id"];
+  id = id ? String(id) : "";
 
-  if (!token) {
+  if (!id) {
     return res.status(404).json({
       success: false,
       message: "User id required",
     });
   }
 
-  const user = await findUserByID(token);
+  const user = await getUserByID(id);
 
   if (!user) {
     return res.status(400).json({
       success: false,
-      message: "User token is invalid",
+      message: "User id is invalid",
     });
   }
 

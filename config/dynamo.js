@@ -51,7 +51,20 @@ const getUserStreamsCount = async (id) => {
   return await dynamoClient
     .get(params)
     .promise()
-    .then((res) => res.Item || null);
+    .then((res) => res.Item || {});
+};
+
+const updateUserStreamsCount = async (data) => {
+  try {
+    const params = {
+      TableName: STREAMS_TABLE_NAME,
+      Item: data,
+    };
+
+    return await dynamoClient.put(params).promise();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 //doing a recursive because DynamoDB limits records returned in a single query
@@ -76,4 +89,5 @@ module.exports = {
   getUsers,
   getUserByID,
   getUserStreamsCount,
+  updateUserStreamsCount,
 };
