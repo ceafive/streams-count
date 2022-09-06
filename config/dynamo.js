@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk");
+const { winstonlogger } = require("../logger");
 
 AWS.config.update({
   region: process.env.DEFAULT_REGION,
@@ -11,47 +12,63 @@ const USERS_TABLE_NAME = "streams-count-users";
 const STREAMS_TABLE_NAME = "streams-count-counts";
 
 const dbSeed = async (user) => {
-  const params = {
-    TableName: USERS_TABLE_NAME,
-    Item: user,
-  };
+  try {
+    const params = {
+      TableName: USERS_TABLE_NAME,
+      Item: user,
+    };
 
-  return await dynamoClient.put(params).promise();
+    return await dynamoClient.put(params).promise();
+  } catch (error) {
+    winstonlogger.log(error);
+  }
 };
 
 const getUsers = async () => {
-  const params = {
-    TableName: USERS_TABLE_NAME,
-  };
-  return await scanDynamoRecordsRecursive(params, []);
+  try {
+    const params = {
+      TableName: USERS_TABLE_NAME,
+    };
+    return await scanDynamoRecordsRecursive(params, []);
+  } catch (error) {
+    winstonlogger.log(error);
+  }
 };
 
 const getUserByID = async (id) => {
-  const params = {
-    TableName: USERS_TABLE_NAME,
-    Key: {
-      id,
-    },
-  };
+  try {
+    const params = {
+      TableName: USERS_TABLE_NAME,
+      Key: {
+        id,
+      },
+    };
 
-  return await dynamoClient
-    .get(params)
-    .promise()
-    .then((res) => res.Item || null);
+    return await dynamoClient
+      .get(params)
+      .promise()
+      .then((res) => res.Item || null);
+  } catch (error) {
+    winstonlogger.log(error);
+  }
 };
 
 const getUserStreamsCount = async (id) => {
-  const params = {
-    TableName: STREAMS_TABLE_NAME,
-    Key: {
-      id,
-    },
-  };
+  try {
+    const params = {
+      TableName: STREAMS_TABLE_NAME,
+      Key: {
+        id,
+      },
+    };
 
-  return await dynamoClient
-    .get(params)
-    .promise()
-    .then((res) => res.Item || {});
+    return await dynamoClient
+      .get(params)
+      .promise()
+      .then((res) => res.Item || {});
+  } catch (error) {
+    winstonlogger.log(error);
+  }
 };
 
 const updateUserStreamsCount = async (data) => {
@@ -63,7 +80,7 @@ const updateUserStreamsCount = async (data) => {
 
     return await dynamoClient.put(params).promise();
   } catch (error) {
-    console.log(error);
+    winstonlogger.log(error);
   }
 };
 
@@ -80,7 +97,7 @@ async function scanDynamoRecordsRecursive(params, array) {
 
     return array;
   } catch (error) {
-    console.log(error);
+    winstonlogger.log(error);
   }
 }
 
@@ -93,7 +110,7 @@ const addUsersToDB = async (data) => {
 
     return await dynamoClient.put(params).promise();
   } catch (error) {
-    console.log(error);
+    winstonlogger.log(error);
   }
 };
 
