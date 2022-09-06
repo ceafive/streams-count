@@ -19,7 +19,7 @@ const increaseStreamsCount = async (id) => {
 };
 
 module.exports = {
-  countCurrnentStreams: function (req, res, next) {
+  countCurrentStreams: function (req, res, next) {
     const id = req.newStreamUserID;
 
     // increase user streams

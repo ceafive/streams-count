@@ -1,17 +1,14 @@
 const express = require("express");
-const path = require("path");
 const logger = require("morgan");
 require("dotenv").config();
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const streamsRouter = require("./routes/streams");
 const { checkUser } = require("./middlewares");
-const { testUsers } = require("./utils");
-const { dbSeed } = require("./config/dynamo");
+const seed = require("./seed");
 
 //seed db
-dbSeed(testUsers[0]);
-
+seed();
 const app = express();
 
 app.use(logger("dev"));
@@ -19,6 +16,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
-app.use("/users", checkUser, usersRouter);
+app.use("/streams", checkUser, streamsRouter);
 
 module.exports = app;

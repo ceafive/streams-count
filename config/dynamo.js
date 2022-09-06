@@ -84,10 +84,24 @@ async function scanDynamoRecordsRecursive(params, array) {
   }
 }
 
+const addUsersToDB = async (data) => {
+  try {
+    const params = {
+      TableName: USERS_TABLE_NAME,
+      Item: data,
+    };
+
+    return await dynamoClient.put(params).promise();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   dbSeed,
   getUsers,
   getUserByID,
   getUserStreamsCount,
   updateUserStreamsCount,
+  addUsersToDB,
 };

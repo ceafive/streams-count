@@ -1,5 +1,6 @@
 const { getUserByID } = require("../config/dynamo");
 
+// mock user token or special header in the request to identify user
 exports.checkUser = async (req, res, next) => {
   let id = req.headers?.["x-id"];
   id = id ? String(id) : "";
