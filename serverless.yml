@@ -11,10 +11,10 @@
 #
 # Happy Coding!
 
-service: streams-count-api
+service: api
 # app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
+# app: streams-count-api
+# org: ceafive
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -58,7 +58,7 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  streams-count-api:
+  streams-count:
     handler: handler.api
     #    The following are a few example events you can configure
     #    NOTE: Please make sure to change your handler code to work with those events

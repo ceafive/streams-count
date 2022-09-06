@@ -27,13 +27,13 @@ module.exports = {
       .then((streams) => {
         res.status(200).json({
           success: true,
-          message: `Current streams is ${streams}`,
+          message: `Current stream is ${streams}`,
         });
       })
       .catch((streams) => {
         res.status(401).json({
           success: false,
-          message: `Current streams is ${streams}. Max number of streams is ${MAX_NO_STREAMS}`,
+          message: `Current stream is ${streams}. Max number of streams is ${MAX_NO_STREAMS}`,
         });
       });
   },
