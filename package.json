@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1210.0",
+    "aws-serverless-express": "^3.4.0",
     "debug": "~2.6.9",
     "dotenv": "^16.0.2",
     "express": "~4.16.1",
