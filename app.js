@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const { checkUserHeader } = require("./middlewares");
+const { checkUser } = require("./middlewares");
 
 const app = express();
 
@@ -14,8 +14,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
-app.use("/users", checkUserHeader, usersRouter);
-
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/users", checkUser, usersRouter);
 
 module.exports = app;

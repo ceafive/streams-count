@@ -1,6 +1,6 @@
 const { findUserByID } = require("../db");
 
-exports.checkUserHeader = (req, res, next) => {
+exports.checkUser = (req, res, next) => {
   let token = req.headers?.["x-id"];
   token = token ? String(token) : "";
 
