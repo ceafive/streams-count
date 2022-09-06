@@ -4,15 +4,6 @@ exports.testUsers = [
   {
     id: "123456",
     name: "Castro Agbo",
-    createdAt: new Date("2022-09-12"),
+    createdAt: new Date().getTime(),
   },
 ];
-
-var CUSTOMEPOCH = 1300000000000;
-exports.generateRowId = function (shardId) {
-  var ts = new Date().getTime() - CUSTOMEPOCH;
-  var randid = Math.floor(Math.random() * 512);
-  ts = ts * 64;
-  ts = ts + shardId;
-  return ts * 512 + randid;
-};

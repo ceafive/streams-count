@@ -1,9 +1,10 @@
+const { getUserByID } = require("../config/dynamo");
 const { MAX_NO_STREAMS, testUsers } = require("../utils");
 
 const currentUsersStreaming = {};
 
-const findUserByID = (id) => {
-  return allUsers.find((user) => user?.id === id) || null;
+const findUserByID = async (id) => {
+  return await getUserByID(id);
 };
 
 const increaseStreamsCount = async (id) => {

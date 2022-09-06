@@ -23,9 +23,35 @@ const getUsers = async () => {
   const params = {
     TableName: USERS_TABLE_NAME,
   };
-  const users = await scanDynamoRecordsRecursive(params, []);
-  console.log(users);
-  return users;
+  return await scanDynamoRecordsRecursive(params, []);
+};
+
+const getUserByID = async (id) => {
+  const params = {
+    TableName: USERS_TABLE_NAME,
+    Key: {
+      id,
+    },
+  };
+
+  return await dynamoClient
+    .get(params)
+    .promise()
+    .then((res) => res.Item || null);
+};
+
+const getUserStreamsCount = async (id) => {
+  const params = {
+    TableName: STREAMS_TABLE_NAME,
+    Key: {
+      id,
+    },
+  };
+
+  return await dynamoClient
+    .get(params)
+    .promise()
+    .then((res) => res.Item || null);
 };
 
 //doing a recursive because DynamoDB limits records returned in a single query
@@ -46,6 +72,8 @@ async function scanDynamoRecordsRecursive(params, array) {
 }
 
 module.exports = {
-  getUsers,
   dbSeed,
+  getUsers,
+  getUserByID,
+  getUserStreamsCount,
 };

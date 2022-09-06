@@ -1,6 +1,6 @@
 const { findUserByID } = require("../db");
 
-exports.checkUser = (req, res, next) => {
+exports.checkUser = async (req, res, next) => {
   let token = req.headers?.["x-id"];
   token = token ? String(token) : "";
 
@@ -11,7 +11,7 @@ exports.checkUser = (req, res, next) => {
     });
   }
 
-  const user = findUserByID(token);
+  const user = await findUserByID(token);
 
   if (!user) {
     return res.status(400).json({
