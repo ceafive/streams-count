@@ -6,6 +6,11 @@ require("dotenv").config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const { checkUser } = require("./middlewares");
+const { testUsers } = require("./utils");
+const { dbSeed } = require("./config/dynamo");
+
+//seed db
+dbSeed(testUsers[0]);
 
 const app = express();
 

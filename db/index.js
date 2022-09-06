@@ -1,13 +1,6 @@
-const { MAX_NO_STREAMS } = require("../utils");
+const { MAX_NO_STREAMS, testUsers } = require("../utils");
 
 const currentUsersStreaming = {};
-const allUsers = [
-  {
-    id: "123456",
-    name: "Castro Agbo",
-    createdAt: new Date("2022-09-12"),
-  },
-];
 
 const findUserByID = (id) => {
   return allUsers.find((user) => user?.id === id) || null;
@@ -28,7 +21,7 @@ const increaseStreamsCount = async (id) => {
 };
 
 module.exports = {
-  db: allUsers,
+  db: testUsers,
   currentUsersStreaming,
   findUserByID,
   increaseStreamsCount,

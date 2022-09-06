@@ -7,11 +7,21 @@ AWS.config.update({
 });
 
 const dynamoClient = new AWS.DynamoDB.DocumentClient();
-const TABLE_NAME = "streams-count-users";
+const USERS_TABLE_NAME = "streams-count-users";
+const STREAMS_TABLE_NAME = "streams-count-counts";
+
+const dbSeed = async (user) => {
+  const params = {
+    TableName: USERS_TABLE_NAME,
+    Item: user,
+  };
+
+  return await dynamoClient.put(params).promise();
+};
 
 const getUsers = async () => {
   const params = {
-    TableName: TABLE_NAME,
+    TableName: USERS_TABLE_NAME,
   };
   const users = await scanDynamoRecordsRecursive(params, []);
   console.log(users);
@@ -37,4 +47,5 @@ async function scanDynamoRecordsRecursive(params, array) {
 
 module.exports = {
   getUsers,
+  dbSeed,
 };
