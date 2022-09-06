@@ -7,17 +7,16 @@ module.exports = {
 
     // increase user streams
     return increaseStreamsCount(id)
-      .then((response) => {
+      .then((streams) => {
         res.status(200).json({
           success: true,
-          message: `Current streams is ${response}`,
+          message: `Current streams is ${streams}`,
         });
       })
-      .catch((error) => {
-        console.log({ error });
+      .catch((streams) => {
         res.status(400).json({
           success: false,
-          message: `Current streams is ${error}. Max number of streams is ${MAX_NO_STREAMS}`,
+          message: `Current streams is ${streams}. Max number of streams is ${MAX_NO_STREAMS}`,
         });
       });
   },
