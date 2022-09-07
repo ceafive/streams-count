@@ -7,10 +7,17 @@ const streamsRouter = require("./routes/streams");
 const { checkUser } = require("./middlewares");
 const seed = require("./seed");
 const { logger } = require("./logger");
+const helmet = require("helmet");
 
 //seed db
 seed();
 const app = express();
+
+//Set security-related HTTP response headers
+app.use(helmet());
+
+// this is one step of security to not show server powering details to hackers. not entirely foolproof, but it's a good to have
+app.disable("x-powered-by");
 
 app.use(
   morgan(
