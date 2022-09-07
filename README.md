@@ -17,9 +17,9 @@ A service in Node.js that exposes an API which can be consumed from any client. 
 
 This project uses AWS credentials that have been provided separately to help you run this project. This have been set to ENV variables with the keys below:
 
-1. ACCESS_KEY_ID
-2. SECRET_ACCESS_KEY
-3. DEFAULT_REGION
+1. ACCESS\_KEY\_ID
+2. SECRET\_ACCESS\_KEY
+3. DEFAULT\_REGION
 
 Once you have each of these: access key id, secret access key, region, you're all set!
 
@@ -52,7 +52,6 @@ docker run -p 8080:8080 -d --name streams-count-api streams-count-api
 #### Run following commands to follow logs
 ```sh
 docker ps
-
 docker logs streams-count-api
 ```
 
@@ -94,6 +93,13 @@ curl -i https://l788umca3c.execute-api.us-west-2.amazonaws.com/prod/
 https://l788umca3c.execute-api.us-west-2.amazonaws.com/prod/streams
 ```
 
+# Scaling strategy
+This api uses AWS Lambda, Lambda automatically scales out for incoming requests, if all existing execution contexts (lambda instances) are busy. Also we can use AWS Lambda with an Application Load Balancer,
+
+We can also use Application Auto Scaling. Application Auto Scaling allows us to configure automatic scaling for different resources, including Provisioned Concurrency for Lambda. We can scale resources based on a specific CloudWatch metric or at a specific date and time.
+
+# Logging & monitoring
+This api implements `CloudWatch` logs to help in logging and monitoring at scale. The api uses `winston-cloudwatch` to send appropriate logs to `CloudWatch`
 
 
 
