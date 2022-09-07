@@ -1,0 +1,20 @@
+FROM node:16
+
+# Create app directory
+WORKDIR /usr/src/app
+COPY package*.json ./
+
+RUN yarn install --production
+
+COPY . .
+
+ARG ACCESS_KEY_ID
+ARG SECRET_ACCESS_KEY
+ARG DEFAULT_REGION
+
+ENV ACCESS_KEY_ID=${ACCESS_KEY_ID}
+ENV SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY}
+ENV DEFAULT_REGION=${DEFAULT_REGION}
+
+ENV PORT 8080
+CMD [ "yarn", "start" ]

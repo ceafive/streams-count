@@ -1,5 +1,5 @@
 const winston = require("winston");
-const WinstonCloudWatch = require("../index");
+const WinstonCloudWatch = require("winston-cloudwatch");
 
 // when you don't provide a name the default one
 // is CloudWatch
