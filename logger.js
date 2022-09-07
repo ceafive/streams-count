@@ -29,6 +29,7 @@ if (process.env.NODE_ENV !== "production") {
 if (process.env.NODE_ENV === "production") {
   // when you don't provide a name the default one
   // is CloudWatch
+
   winston.add(
     new WinstonCloudWatch({
       awsOptions: {
