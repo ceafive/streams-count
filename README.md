@@ -99,9 +99,11 @@ This api uses AWS Lambda, Lambda automatically scales out for incoming requests,
 We can also use Application Auto Scaling. Application Auto Scaling allows us to configure automatic scaling for different resources, including Provisioned Concurrency for Lambda. We can scale resources based on a specific CloudWatch metric or at a specific date and time.
 
 # Logging & monitoring
-This api implements `CloudWatch` logs to help in logging and monitoring at scale. The api uses `winston-cloudwatch` to send appropriate logs to `CloudWatch`.
+This api implements `CloudWatch` logs to help in logging and monitoring at scale. The api uses `winston-cloudwatch` to send specific logs to `CloudWatch` under a log group name.
 
-The `Log Group Name` is unique and the `Log Streams Name` is also unique to aid in filtering and setting metrics
+The `Log Group Name` is unique and the `Log Streams Name` is also unique to aid in filtering and setting metrics.
+
+Every other `stdout` goes to to a different `Log Group`
 
 
 
