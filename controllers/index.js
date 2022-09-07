@@ -2,6 +2,7 @@ const {
   getUserStreamsCount,
   updateUserStreamsCount,
 } = require("../config/dynamo");
+const { logger } = require("../logger");
 const { MAX_NO_STREAMS } = require("../utils");
 
 const increaseStreamsCount = async (id) => {
@@ -25,12 +26,33 @@ module.exports = {
     // increase user streams
     return increaseStreamsCount(id)
       .then((streams) => {
+        logger.info(
+          {
+            success: true,
+            message: `Current stream is ${streams}`,
+          },
+          {
+            service: "count-streams",
+          }
+        );
+
         res.status(200).json({
           success: true,
           message: `Current stream is ${streams}`,
         });
       })
       .catch((streams) => {
+        logger.error(
+          {
+            success: false,
+            message: `Current stream is ${streams}. Max number of streams is ${MAX_NO_STREAMS}`,
+            userID: id,
+          },
+          {
+            service: "count-streams",
+          }
+        );
+
         res.status(401).json({
           success: false,
           message: `Current stream is ${streams}. Max number of streams is ${MAX_NO_STREAMS}`,

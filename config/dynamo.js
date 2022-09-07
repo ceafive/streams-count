@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-const { winstonlogger } = require("../logger");
+const { logger } = require("../logger");
 
 AWS.config.update({
   region: process.env.DEFAULT_REGION,
@@ -20,7 +20,7 @@ const dbSeed = async (user) => {
 
     return await dynamoClient.put(params).promise();
   } catch (error) {
-    winstonlogger.log(error);
+    logger.error(error);
   }
 };
 
@@ -31,7 +31,7 @@ const getUsers = async () => {
     };
     return await scanDynamoRecordsRecursive(params, []);
   } catch (error) {
-    winstonlogger.log(error);
+    logger.error(error);
   }
 };
 
@@ -49,7 +49,7 @@ const getUserByID = async (id) => {
       .promise()
       .then((res) => res.Item || null);
   } catch (error) {
-    winstonlogger.log(error);
+    logger.error(error);
   }
 };
 
@@ -67,7 +67,7 @@ const getUserStreamsCount = async (id) => {
       .promise()
       .then((res) => res.Item || {});
   } catch (error) {
-    winstonlogger.log(error);
+    logger.error(error);
   }
 };
 
@@ -80,7 +80,7 @@ const updateUserStreamsCount = async (data) => {
 
     return await dynamoClient.put(params).promise();
   } catch (error) {
-    winstonlogger.log(error);
+    logger.error(error);
   }
 };
 
@@ -97,7 +97,7 @@ async function scanDynamoRecordsRecursive(params, array) {
 
     return array;
   } catch (error) {
-    winstonlogger.log(error);
+    logger.error(error);
   }
 }
 
@@ -110,7 +110,7 @@ const addUsersToDB = async (data) => {
 
     return await dynamoClient.put(params).promise();
   } catch (error) {
-    winstonlogger.log(error);
+    logger.error(error);
   }
 };
 
