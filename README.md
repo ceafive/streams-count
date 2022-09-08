@@ -87,10 +87,10 @@ You can user the following ids to test out the endpoint:
 curl -i https://l788umca3c.execute-api.us-west-2.amazonaws.com/prod/
 ```
 
-> Please note, you require a `X-ID` header in other to identify the current user
+> Please note, you require a `X-ID` header in other to identify the current user. Possible values are listed above
 
 ```sh
-https://l788umca3c.execute-api.us-west-2.amazonaws.com/prod/streams
+curl https://l788umca3c.execute-api.us-west-2.amazonaws.com/prod/streams -H "X-ID: 123"
 ```
 
 # Scaling strategy
