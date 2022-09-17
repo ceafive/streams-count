@@ -26,7 +26,7 @@ provider:
 
   # you can overwrite defaults here
   stage: prod
-  region: us-west-2
+  region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -71,6 +71,10 @@ functions:
       - http:
           path: /streams
           method: get
+          cors: true
+      - http:
+          path: /streams/reset
+          method: post
           cors: true
       #      - websocket: $connect
       #      - s3: ${env:BUCKET}

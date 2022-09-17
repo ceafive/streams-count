@@ -1,10 +1,11 @@
 const AWS = require("aws-sdk");
 const { logger } = require("../logger");
+const { region, accessKeyID, secretAccessKey } = require("./utils");
 
 AWS.config.update({
-  region: process.env.DEFAULT_REGION,
-  accessKeyId: process.env.ACCESS_KEY_ID,
-  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  region: region,
+  accessKeyId: accessKeyID,
+  secretAccessKey: secretAccessKey,
 });
 
 const dynamoClient = new AWS.DynamoDB.DocumentClient();
@@ -108,9 +109,11 @@ const addUsersToDB = async (data) => {
       Item: data,
     };
 
-    return await dynamoClient.put(params).promise();
+    await dynamoClient.put(params).promise();
+    return data;
   } catch (error) {
     logger.error(error);
+    return null;
   }
 };
 

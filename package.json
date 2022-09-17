@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "start": "DEBUG=sigma-digital:server node ./bin/www",
-    "dev": "DEBUG=sigma-digital:server nodemon ./bin/www"
+    "dev": "DEBUG=sigma-digital:server nodemon ./bin/www",
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "@aws-sdk/client-cloudwatch-logs": "^3.165.0",
     "aws-sdk": "^2.1210.0",
     "aws-serverless-express": "^3.4.0",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.2",
     "express": "~4.16.1",
@@ -19,6 +21,8 @@
     "winston-cloudwatch": "^6.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "jest": "^29.0.3",
+    "nodemon": "^2.0.19",
+    "supertest": "^6.2.4"
   }
 }

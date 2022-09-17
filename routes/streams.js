@@ -1,8 +1,8 @@
 var express = require("express");
-const { countCurrentStreams } = require("../controllers");
+const { countCurrentStreams, resetUserCount } = require("../controllers");
 var router = express.Router();
 
-/* GET users listing. */
 router.get("/", countCurrentStreams);
+router.post("/reset", resetUserCount);
 
 module.exports = router;

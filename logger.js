@@ -1,10 +1,16 @@
 const { createLogger, transports, format } = require("winston");
 const WinstonCloudWatch = require("winston-cloudwatch");
+const {
+  accessKeyID,
+  secretAccessKey,
+  region,
+  environment,
+} = require("./config/utils");
 
 const customLogger = createLogger();
 const winston = customLogger;
 
-if (process.env.NODE_ENV !== "production") {
+if (environment !== "production") {
   winston.add(
     new transports.File({
       filename: "streams.log",
@@ -26,22 +32,21 @@ if (process.env.NODE_ENV !== "production") {
   );
 }
 
-if (process.env.NODE_ENV === "production") {
-  // when you don't provide a name the default one
-  // is CloudWatch
+if (environment === "production") {
+  // when you don't provide a name the default one is CloudWatch
 
   winston.add(
     new WinstonCloudWatch({
       awsOptions: {
         credentials: {
-          accessKeyId: process.env.ACCESS_KEY_ID,
-          secretAccessKey: process.env.SECRET_ACCESS_KEY,
+          accessKeyId: accessKeyID,
+          secretAccessKey: secretAccessKey,
         },
-        region: process.env.DEFAULT_REGION,
+        region: region,
       },
-      awsRegion: process.env.DEFAULT_REGION,
-      accessKeyId: process.env.ACCESS_KEY_ID,
-      secretAccessKey: process.env.SECRET_ACCESS_KEY,
+      awsRegion: region,
+      accessKeyId: accessKeyID,
+      secretAccessKey: secretAccessKey,
       logGroupName: "streams-count-api",
       logStreamName:
         new Date().toISOString().split("T")[0] + "/" + "count-streams",

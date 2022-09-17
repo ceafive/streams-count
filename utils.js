@@ -1,6 +1,12 @@
-exports.MAX_NO_STREAMS = 3;
+const {
+  getUserStreamsCount,
+  updateUserStreamsCount,
+} = require("./config/dynamo");
+const { logger } = require("./logger");
 
-exports.testUsers = [
+const MAX_NO_STREAMS = 3;
+
+const testUsers = [
   {
     id: "123",
     name: "Castro",
@@ -22,3 +28,41 @@ exports.testUsers = [
     createdAt: new Date().getTime(),
   },
 ];
+
+const increaseStreamsCount = async (id) => {
+  const user = await getUserStreamsCount(id);
+  let currentStreams = user?.currentStreams || 0;
+
+  if (currentStreams < MAX_NO_STREAMS) {
+    currentStreams = currentStreams + 1;
+    user.currentStreams = currentStreams;
+    await updateUserStreamsCount({ id, currentStreams });
+    return currentStreams;
+  }
+
+  throw currentStreams;
+};
+
+const resetStreamsCount = async (id) => {
+  const user = await getUserStreamsCount(id);
+
+  if (!user) {
+    throw `User with id ${id} not found`;
+  }
+  user.currentStreams = 0;
+  await updateUserStreamsCount({ id, currentStreams: 0 });
+  return 0;
+};
+
+const errorHandler = (err, req, res, next) => {
+  logger.error(err.stack);
+  res.status(500).send("Something broke!");
+};
+
+module.exports = {
+  increaseStreamsCount,
+  resetStreamsCount,
+  MAX_NO_STREAMS,
+  testUsers,
+  errorHandler,
+};

@@ -8,12 +8,13 @@ const app = require("../app");
 const debug = require("debug")("sigma-digital:server");
 const http = require("http");
 const { logger } = require("../logger");
+const { port: PORT } = require("../config/utils");
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(PORT || "3000");
 app.set("port", port);
 
 /**
